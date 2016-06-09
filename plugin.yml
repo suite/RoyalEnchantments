@@ -1,0 +1,8 @@
+main: net.gr8bit.RoyalEnchantments.Main
+name: RoyalEnchantments
+version: 1.0
+author: Matt
+description: Custom coded by Luqy
+commands:
+  shard:
+    description: Open GUI
