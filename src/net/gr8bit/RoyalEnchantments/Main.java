@@ -4,7 +4,6 @@ import net.gr8bit.RoyalEnchantments.Commands.ShardCmd;
 import net.gr8bit.RoyalEnchantments.Listeners.BlockListener;
 import net.gr8bit.RoyalEnchantments.Listeners.InventoryListener;
 import net.gr8bit.RoyalEnchantments.Listeners.PlayerListener;
-import net.gr8bit.RoyalEnchantments.Utils.GlowUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -26,6 +25,7 @@ public class Main extends JavaPlugin {
     public static JavaPlugin plugin;
     public static ArrayList<String> enchanttypes = new ArrayList<String>();
 
+
     @Override
     public void onEnable() {
         registerEvents(this, new InventoryListener(), new PlayerListener(), new BlockListener());
@@ -37,6 +37,19 @@ public class Main extends JavaPlugin {
         enchanttypes.add("Messanger");
         enchanttypes.add("Arrow_Formation");
 
+        enchanttypes.add("Piercing");
+        enchanttypes.add("Life_Steal");
+        enchanttypes.add("Frostbite");
+        enchanttypes.add("Voltage");
+        enchanttypes.add("Wolf_Tamer");
+
+        enchanttypes.add("After_Effects");
+        enchanttypes.add("Savage");
+        enchanttypes.add("Enemy_Decay");
+        enchanttypes.add("Explosive_Arrows");
+        enchanttypes.add("Mob_Swatter");
+
+
     }
 
     public static void registerEvents(org.bukkit.plugin.Plugin plugin, Listener... listeners) {
@@ -46,11 +59,25 @@ public class Main extends JavaPlugin {
     }
 
     public static void giveShard(Player p, int amount) {
-        plugin.getConfig().set(p.getName() + ".shards", plugin.getConfig().getInt(p.getName() + ".shards", 0) + amount);
+        plugin.getConfig().set("royale."+p.getName() + ".shard", plugin.getConfig().getInt("royale."+p.getName() + ".shard", 0) + amount);
+        p.sendMessage("added shards");
+        plugin.saveConfig();
 
     }
-    public static void createDisplay(Material material, Inventory inv, int Slot, String name, ArrayList<String> lore, boolean glow) {
-        ItemStack item = new ItemStack(material);
+    public static void removeShard(Player p, int amount) {
+        plugin.getConfig().set("royale."+p.getName() + ".shard", plugin.getConfig().getInt("royale."+p.getName() + ".shard", 0) - amount);
+        p.sendMessage("removed shards");
+        plugin.saveConfig();
+
+    }
+    public static void setShard(Player p, int amount) {
+        plugin.getConfig().set("royale."+p.getName() + ".shard", amount);
+        p.sendMessage("set shards");
+        plugin.saveConfig();
+
+    }
+    public static void createDisplay(Material material, Inventory inv, int Slot, String name, ArrayList<String> lore, boolean glow, int datavalue, int amount) {
+        ItemStack item = new ItemStack(material, amount, (short) datavalue);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
 
@@ -69,5 +96,7 @@ public class Main extends JavaPlugin {
         inv.setItem(Slot, item);
 
     }
+
+
 
 }

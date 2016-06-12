@@ -18,6 +18,7 @@ public class PlayerListener implements Listener {
             for (String et : Main.enchanttypes) {
                 Main.plugin.getConfig().set("royale." + e.getPlayer().getName() + "." + et + ".enabled", false);
                 Main.plugin.getConfig().set("royale." +e.getPlayer().getName() + "." + et + ".level", 0);
+                Main.plugin.getConfig().set("royale." +e.getPlayer().getName() + "." + et + ".unlocked", false);
 
             }
             Main.plugin.saveConfig();
