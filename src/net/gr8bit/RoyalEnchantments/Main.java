@@ -78,6 +78,7 @@ public class Main extends JavaPlugin {
     }
     public static void createDisplay(Material material, Inventory inv, int Slot, String name, ArrayList<String> lore, boolean glow, int datavalue, int amount) {
         ItemStack item = new ItemStack(material, amount, (short) datavalue);
+
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
 
@@ -92,9 +93,7 @@ public class Main extends JavaPlugin {
             item.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
         }
 
-
         inv.setItem(Slot, item);
-
     }
 
 

@@ -1,5 +1,6 @@
 package net.gr8bit.RoyalEnchantments.Commands;
 
+import net.gr8bit.RoyalEnchantments.ItemInfo;
 import net.gr8bit.RoyalEnchantments.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Created by Matt on 6/8/16.
  */
@@ -20,68 +22,127 @@ public class ShardCmd implements CommandExecutor {
 
 
     static Inventory inv;
-    static Map<String, String> LoreMap;
-    static Map<String, Material> MaterialMap;
-    static Map<String, Integer[]> UpgradeAmount;
+    public static Map<String, ItemInfo> ItemMap;
+
     public static Map<String, Integer> InventoryPage;
-    static int ItemsPerPage = 5;
+    public static int ItemsPerPage = 5;
     static {
-        LoreMap = new HashMap<String, String>();
-        LoreMap.put("Auto_Smelt", "§7Automatically smelt ores to ingots, sand to glass, and netherrack to netherbrick!");
-        LoreMap.put("Jackhammer", "§7Mine multiple blocks at once with this craft enhancement!");
-        LoreMap.put("Plant_Breeder", "§7Phen tilling the ground, you may find your self suprised to see automatically planted seeds!");
-        LoreMap.put("Messanger", "§7Basically like power walking, except without effort! This increases your movement spead.");
-        LoreMap.put("Arrow_Formation", "§7Shoot multiple arrows at one time in special formations!");
+        ItemMap = new HashMap<String, ItemInfo>();
+        ItemMap.put("Auto_Smelt", new ItemInfo(
+                /*
+                INVENTORY ONE
+                 */
+                "§7Automatically smelt ores to ingots, sand to glass, and netherrack to netherbrick!",
+                Material.COAL,
+                new Integer [] {400,150,200, 250,400},
+                new Integer [] {10,20,30,40,50},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Jackhammer", new ItemInfo(
+                "§7Mine multiple blocks at once with this craft enhancement!",
+                Material.DIAMOND_PICKAXE,
+                new Integer [] {800,400,600,800},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Plant_Breeder", new ItemInfo(
+                "§7When tilling the ground, you may find your self suprised to see automatically planted seeds!",
+                Material.GOLD_HOE,
+                new Integer [] {175,100,200},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Messanger", new ItemInfo(
+                "§7Basically like power walking, except without effort! This increases your movement spead.",
+                Material.DIAMOND_BOOTS,
+                new Integer [] {200,50,100,150,200},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Arrow_Formation", new ItemInfo(
+                "§7Shoot multiple arrows at one time in special formations!",
+                Material.BOW,
+                new Integer [] {400,600,800,1000,200},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+          /*
+                INVENTORY TWO
+                 */
+        ItemMap.put("Piercing", new ItemInfo(
+                "§7fill in",
+                Material.CHAINMAIL_CHESTPLATE,
+                new Integer [] {500,200,350,550},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Life_Steal", new ItemInfo(
+                "§7fill in",
+                Material.RED_ROSE,
+                new Integer [] {400,300,500,800},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Frostbite", new ItemInfo(
+                "§7fill in",
+                Material.ICE,
+                new Integer [] {400,350,400,700},
+                new Integer [] {0,0,0, 0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Voltage", new ItemInfo(
+                "§7fill in",
+                Material.DIAMOND_SWORD,
+                new Integer [] {600,450,600,900},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Wolf_Tamer", new ItemInfo(
+                "§7fill in",
+                Material.BONE,
+                new Integer [] {600,400,500},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+          /*
+                INVENTORY THREE
+                 */
+        ItemMap.put("After_Effects", new ItemInfo(
+                "§7fill in",
+                Material.TNT,
+                new Integer [] {200,200,300,300,400},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Savage", new ItemInfo(
+                "§7fill in",
+                Material.BLAZE_POWDER,
+                new Integer [] {750,400,500,600,800},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Enemy_Decay", new ItemInfo(
+                "§7fill in",
+                Material.DEAD_BUSH,
+                new Integer [] {400,400,500},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Explosive_Arrows", new ItemInfo(
+                "§7fill in",
+                Material.ARROW,
+                new Integer [] {500,350,500},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
+        ItemMap.put("Mob_Swatter", new ItemInfo(
+                "§7fill in",
+                Material.SIGN,
+                new Integer [] {200,250,450,500},
+                new Integer [] {0,0,0,0,0},
+                new Integer [] {400,150,200, 250,400}
+        ));
 
-        LoreMap.put("Piercing", "§7Automatically smelt ores to ingots, sand to glass, and netherrack to netherbrick!");
-        LoreMap.put("Life_Steal", "§7Mine multiple blocks at once with this craft enhancement!");
-        LoreMap.put("Frostbite", "§7Phen tilling the ground, you may find your self suprised to see automatically planted seeds!");
-        LoreMap.put("Voltage", "§7Basically like power walking, except without effort! This increases your movement spead.");
-        LoreMap.put("Wolf_Tamer", "§7Shoot multiple arrows at one time in special formations!");
-
-        LoreMap.put("After_Effects", "§7Automatically smelt ores to ingots, sand to glass, and netherrack to netherbrick!");
-        LoreMap.put("Savage", "§7Mine multiple blocks at once with this craft enhancement!");
-        LoreMap.put("Enemy_Decay", "§7When tilling the ground, you may find your self surprised to see automatically planted seeds!");
-        LoreMap.put("Explosive_Arrows", "§7Basically like power walking, except without effort! This increases your movement spead.");
-        LoreMap.put("Mob_Swatter", "§7Shoot multiple arrows at one time in special formations!");
-
-        MaterialMap = new HashMap<String, Material>();
-        MaterialMap.put("Auto_Smelt", Material.COAL);
-        MaterialMap.put("Jackhammer", Material.DIAMOND_PICKAXE);
-        MaterialMap.put("Plant_Breeder", Material.GOLD_HOE);
-        MaterialMap.put("Messanger", Material.DIAMOND_BOOTS);
-        MaterialMap.put("Arrow_Formation", Material.BOW);
-
-        MaterialMap.put("Piercing", Material.CHAINMAIL_CHESTPLATE);
-        MaterialMap.put("Life_Steal", Material.RED_ROSE);
-        MaterialMap.put("Frostbite", Material.ICE);
-        MaterialMap.put("Voltage", Material.DIAMOND_SWORD);
-        MaterialMap.put("Wolf_Tamer", Material.BONE);
-
-        MaterialMap.put("After_Effects", Material.TNT);
-        MaterialMap.put("Savage", Material.BLAZE_POWDER);
-        MaterialMap.put("Enemy_Decay", Material.DEAD_BUSH);
-        MaterialMap.put("Explosive_Arrows", Material.ARROW);
-        MaterialMap.put("Mob_Swatter", Material.SIGN);
-
-        UpgradeAmount = new HashMap<String, String>();
-        UpgradeAmount.put("Auto_Smelt", new Integer [] {400,150,200, 250,400});
-        UpgradeAmount.put("Jackhammer", new Integer [] {800,400,600,800});
-        UpgradeAmount.put("Plant_Breeder", new Integer [] {175,100,200});
-        UpgradeAmount.put("Messanger", new Integer [] {200,50,100,150,200});
-        UpgradeAmount.put("Arrow_Formation", new Integer [] {400,600,800,1000,200});
-
-        UpgradeAmount.put("Piercing", new Integer [] {500,200,350,550});
-        UpgradeAmount.put("Life_Steal", new Integer [] {400,300,500,800});
-        UpgradeAmount.put("Frostbite", new Integer [] {400,350,400,700});
-        UpgradeAmount.put("Voltage", new Integer [] {600,450,600,900});
-        UpgradeAmount.put("Wold_Tamer", new Integer [] {600,400,500});
-
-        UpgradeAmount.put("After_Effects", new Integer [] {200,200,300,300,400});
-        UpgradeAmount.put("Savage", new Integer [] {750,400,500,600,800});
-        UpgradeAmount.put("Enemy_Decay", new Integer [] {400,400,500});
-        UpgradeAmount.put("Explosive_Arrows", new Integer [] {500,350,500});
-        UpgradeAmount.put("Mob_Swatter", new Integer [] {200,250,450,500});
 
 
         InventoryPage = new HashMap<String, Integer>();
@@ -89,9 +150,10 @@ public class ShardCmd implements CommandExecutor {
     }
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
-        Player p = (Player)commandSender;
-        int shards = Main.plugin.getConfig().getInt("royale." + p.getName() + ".shard");
         try {
+            Player p = (Player)commandSender;
+            int shards = Main.plugin.getConfig().getInt("royale." + p.getName() + ".shard");
+
             if(args.length == 0) {
                 if (command.getName().equalsIgnoreCase("shard")) {
                     int ip = InventoryPage.getOrDefault(p.getName(), 0);
@@ -104,7 +166,7 @@ public class ShardCmd implements CommandExecutor {
                         boolean unlocked = Main.plugin.getConfig().getBoolean("royale." + p.getName() + "." + et + ".unlocked");
                         ArrayList<String> lore = new ArrayList<String>();
                         lore.add(" ");
-                        lore.add(LoreMap.get(et));
+                        lore.add(ItemMap.get(et).getLore());
                         lore.add(" ");
                         if (enabled && unlocked) {
                             lore.add("§aEnabled");
@@ -131,12 +193,83 @@ public class ShardCmd implements CommandExecutor {
                             Main.createDisplay(Material.ARROW, inv, 48, "§bPage 3", null, true, 0, 3);
 
                         }
+
                         if(unlocked)
-                            Main.createDisplay(MaterialMap.get(et), inv, 9 * line, "§a" + et.replace("_", " "), lore, enabled, 0, 1);
+                            Main.createDisplay(ItemMap.get(et).getMaterial(), inv, 9 * line, "§a" + et.replace("_", " "), lore, enabled, 0, 1);
                         else
-                            Main.createDisplay(MaterialMap.get(et), inv, 9 * line, "§c" + et.replace("_", " "), lore, enabled, 0, 1);
+                            Main.createDisplay(ItemMap.get(et).getMaterial(), inv, 9 * line, "§c" + et.replace("_", " "), lore, enabled, 0, 1);
+                        int clayamount = ItemMap.get(et).getUpgradeamount().length;
+                        int level = Main.plugin.getConfig().getInt("royale." + p.getName() + "." + et + ".level");
+
+                        try {
+                            for (int i = 0; i < clayamount; i++) {
+                                int clayshort = 9;
+                                String title = "§c";
+
+                                ArrayList<String> claylore = new ArrayList<String>();
+                                if (shards >= ItemMap.get(et).getUpgradeamount()[i]) {
+                                    if (i == level) {
+                                        //red
+
+                                        clayshort = 14;
+                                        title = "§c";
+                                        claylore.add("§7Status: §cLocked");
+                                        claylore.add("§7Price: §3♦" +ItemMap.get(et).getUpgradeamount()[i]);
+                                        claylore.add(" ");
+                                        if(ItemMap.get(et).getChance()[i] != 0) {
+                                            claylore.add("§7Chance: §6"+ItemMap.get(et).getChance()[i].toString() +"%");
+                                        }
+
+                                    }
+
+                                } else {
+
+                                    clayshort = 9;
+                                    if(clayshort == 14 || i == level) {
+                                        claylore.add("§7Status: §cInsuffcient Shards");
+                                        claylore.add("§7Price: §3♦" + ItemMap.get(et).getUpgradeamount()[i]);
+                                        claylore.add(" ");
+                                        if (ItemMap.get(et).getChance()[i] != 0) {
+                                            claylore.add("§7Chance: §6" + ItemMap.get(et).getChance()[i].toString() + "%");
+
+                                        }
+                                    }
+                                }
+                                if (i < level) {
+                                    //green
+                                    clayshort = 5;
+                                    title = "§a";
+
+                                    claylore.add("§7Status: §aUnlocked");
+                                    claylore.add(" ");
+                                    if(ItemMap.get(et).getChance()[i] != 0) {
+                                        claylore.add("§7Chance: §6"+ItemMap.get(et).getChance()[i].toString() +"%");
+
+                                    }
+
+                                }
+                                if(i > level) {
+                                    claylore.add("§7Status: §cUnavailable");
+                                    claylore.add("§7Price: §3♦" + ItemMap.get(et).getUpgradeamount()[i]);
+                                    claylore.add("");
+                                    if (ItemMap.get(et).getChance()[i] != 0) {
+                                        claylore.add("§7Chance: §6" + ItemMap.get(et).getChance()[i].toString() + "%");
+
+                                    }
+                                    claylore.add("§7§oUnlock Previous Level");
+                                }
 
 
+
+
+
+                                Main.createDisplay(Material.STAINED_CLAY, inv, 9 * line + 1 + i, title + et.replace("_", " ") + " Lv. " + (i + 1), claylore, false, clayshort, 1);
+
+
+                            }
+                        }catch(Throwable e) {
+                            e.printStackTrace();
+                        }
 
 
                         line += 1;
